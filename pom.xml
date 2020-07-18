@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <name>KtMapper</name>
@@ -9,7 +7,7 @@
     <description>A Kotlin "object-to-object" mapper based on naming conventions</description>
     <groupId>com.github.movilepay</groupId>
     <artifactId>kt-mapper</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
 
     <issueManagement>
         <system>GitHub</system>
@@ -27,7 +25,7 @@
         <connection>scm:git:git@github.com:MovilePay/kt-mapper.git</connection>
         <developerConnection>scm:git:git@github.com:MovilePay/kt-mapper.git</developerConnection>
         <url>https://github.com/MovilePay/kt-mapper</url>
-        <tag>master</tag>
+        <tag>kt-mapper-0.0.3</tag>
     </scm>
 
     <organization>
