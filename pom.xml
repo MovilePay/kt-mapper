@@ -7,7 +7,7 @@
     <description>A Kotlin "object-to-object" mapper based on naming conventions</description>
     <groupId>com.github.movilepay</groupId>
     <artifactId>kt-mapper</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <issueManagement>
         <system>GitHub</system>
@@ -25,7 +25,7 @@
         <connection>scm:git:git@github.com:MovilePay/kt-mapper.git</connection>
         <developerConnection>scm:git:git@github.com:MovilePay/kt-mapper.git</developerConnection>
         <url>https://github.com/MovilePay/kt-mapper</url>
-        <tag>kt-mapper-0.0.3</tag>
+        <tag>master</tag>
     </scm>
 
     <organization>
