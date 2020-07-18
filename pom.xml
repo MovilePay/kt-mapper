@@ -24,8 +24,8 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/MovilePay/kt-mapper.git</connection>
-        <developerConnection>scm:git:https://github.com/MovilePay/kt-mapper.git</developerConnection>
+        <connection>scm:git:git@github.com:MovilePay/kt-mapper.git</connection>
+        <developerConnection>scm:git:git@github.com:MovilePay/kt-mapper.git</developerConnection>
         <url>https://github.com/MovilePay/kt-mapper</url>
         <tag>master</tag>
     </scm>
