@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Conditional mappings · KtMapper</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Sometimes, we need to map a specific property only if a specific condition is satisfied. For this case, *KtMapper Fluent Mapping API* let you to use the method `onlyMapIf()`. This method let you to specify a condition on source object that must be satisfied to let the value be mapped to target object. In addition, you can set a value to be used if the condition is not satisfied by using the method `ifNotMappedReplaceWith()`."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Conditional mappings · KtMapper"/><meta property="og:type" content="website"/><meta property="og:url" content="https://movilepay.github.io//kt-mapper/"/><meta property="og:description" content="Sometimes, we need to map a specific property only if a specific condition is satisfied. For this case, *KtMapper Fluent Mapping API* let you to use the method `onlyMapIf()`. This method let you to specify a condition on source object that must be satisfied to let the value be mapped to target object. In addition, you can set a value to be used if the condition is not satisfied by using the method `ifNotMappedReplaceWith()`."/><meta property="og:image" content="https://movilepay.github.io//kt-mapper/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://movilepay.github.io//kt-mapper/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/kt-mapper/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/kt-mapper/js/scrollSpy.js"></script><link rel="stylesheet" href="/kt-mapper/css/main.css"/><script src="/kt-mapper/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/kt-mapper/"><img class="logo" src="/kt-mapper/img/mpay_logo.png" alt="KtMapper"/><h2 class="headerTitleWithLogo">KtMapper</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/kt-mapper/docs/kt-mapper" target="_self">Docs</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Mapping classes</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">KtMapper</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/kt-mapper">Getting Started</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Dependency</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/dependency-maven">Maven Dependency</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/dependency-gradle">Gradle Dependency</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Mapping classes</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/mapping-conventions">Mapping Conventions</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/kt-mapper/docs/conditional-mappings">Conditional mappings</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/custom-mappings">Custom Mappings Patterns</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/deep-mappings">Deep Mapping</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/null-values">Dealing with nullable values</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Conditional mappings</h1></header><article><div><span><p>Sometimes, we need to map a specific property only if a specific condition is satisfied. For this case, <em>KtMapper Fluent Mapping API</em> let you to use the method <code>onlyMapIf()</code>. This method let you to specify a condition on source object that must be satisfied to let the value be mapped to target object. In addition, you can set a value to be used if the condition is not satisfied by using the method <code>ifNotMappedReplaceWith()</code>.
+Lets consider the following classes:</p>
+<pre><code class="hljs css language-kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span></span>(
+    <span class="hljs-keyword">val</span> id: UUID,
+    <span class="hljs-keyword">val</span> name: String,
+    <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>
+)
+
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span></span>(
+    <span class="hljs-keyword">val</span> id: UUID,
+    <span class="hljs-keyword">val</span> name: String,
+    <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>
+)
+</code></pre>
+<p>We can wish to map the property <code>name</code> from <code>Bar</code> to <code>name</code> from <code>Foo</code> only if the number of characters is up to 10. If this condition is false, we can wish to put &quot;NOT MAPPED&quot; instead of the original value. To fit this requirements, we can use the following mapping configuration:</p>
+<pre><code class="hljs css language-kotlin">with(MapForProperty&lt;Foo, String&gt;(Foo::name)) {
+    whenSourceIs&lt;Bar&gt;()
+        .onlyMapIf { it.name.length &lt;= <span class="hljs-number">10</span> }
+        .ifNotMappedReplaceWith(<span class="hljs-string">"NOT MAPPED"</span>)
+        .register()
+}
+</code></pre>
+<p>With this configuration, if we map the following objects...</p>
+<pre><code class="hljs css language-kotlin"><span class="hljs-keyword">val</span> res: Foo = KtMapper.map(
+    Bar(
+        id = UUID.randomUUID(),
+        name = <span class="hljs-string">"Zé"</span>, <span class="hljs-comment">// Less that 10 characters</span>
+        age = <span class="hljs-number">20</span>
+    )
+)
+println(res)
+
+<span class="hljs-keyword">val</span> res2: Foo = KtMapper.map(
+    Bar(
+        id = UUID.randomUUID(),
+        name = <span class="hljs-string">"Zezinho da Silva Sauro"</span>, <span class="hljs-comment">// More than 10 characters</span>
+        age = <span class="hljs-number">10</span>
+    )
+)
+println(res2)
+</code></pre>
+<p>... the following output will be produced:</p>
+<pre><code class="hljs"><span class="hljs-comment">// First object: up to 10 characters</span>
+<span class="hljs-constructor">Foo(<span class="hljs-params">id</span>=292b65a1-223a-48b3-<span class="hljs-params">bd98</span>-7a30a8a95c75, <span class="hljs-params">name</span>=Zé, <span class="hljs-params">age</span>=20)</span>
+<span class="hljs-comment">// Secound object: more than 10 characters - must use value of ifNotMappedReplaceWith()</span>
+<span class="hljs-constructor">Foo(<span class="hljs-params">id</span>=36030a7c-<span class="hljs-params">f32e</span>-4cce-958e-<span class="hljs-params">e66fecffdd3c</span>, <span class="hljs-params">name</span>=NOT MAPPED, <span class="hljs-params">age</span>=10)</span>
+</code></pre>
+<p>It is a good idea using <code>onlyMapIf()</code> together with <code>ifNotMappedReplaceWith()</code>. If the condition of <code>onlyMapIf()</code> will not satisfied and the mapping does not contain a value defined by <code>ifNotMappedReplaceWith()</code>, KtMapper will send <code>null</code> to the property of target object. If the property can not receive a <code>null</code> value, an error in execution time will be raised.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/kt-mapper/docs/mapping-conventions"><span class="arrow-prev">← </span><span>Mapping Conventions</span></a><a class="docs-next button" href="/kt-mapper/docs/custom-mappings"><span>Custom Mappings Patterns</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><a href="https://movilepay.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/kt-mapper/img/mpay_logo_white.png" alt="MovilePay" width="170" height="45"/></a><section class="copyright">Copyright © 2020 MovilePay. Built with Docusaurus.</section></footer></div></body></html>

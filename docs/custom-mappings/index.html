@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Custom Mappings Patterns · KtMapper</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Sometimes, the relation between source objects and target objects will not be an *as-is* relation. For this cases, you can use the *KtMapper Fluent Mapping API*. This API let you to change the way that KtMapper will map a specific property of a target object from a source object."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Custom Mappings Patterns · KtMapper"/><meta property="og:type" content="website"/><meta property="og:url" content="https://movilepay.github.io//kt-mapper/"/><meta property="og:description" content="Sometimes, the relation between source objects and target objects will not be an *as-is* relation. For this cases, you can use the *KtMapper Fluent Mapping API*. This API let you to change the way that KtMapper will map a specific property of a target object from a source object."/><meta property="og:image" content="https://movilepay.github.io//kt-mapper/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://movilepay.github.io//kt-mapper/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/kt-mapper/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/kt-mapper/js/scrollSpy.js"></script><link rel="stylesheet" href="/kt-mapper/css/main.css"/><script src="/kt-mapper/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/kt-mapper/"><img class="logo" src="/kt-mapper/img/mpay_logo.png" alt="KtMapper"/><h2 class="headerTitleWithLogo">KtMapper</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/kt-mapper/docs/kt-mapper" target="_self">Docs</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Mapping classes</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">KtMapper</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/kt-mapper">Getting Started</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Dependency</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/dependency-maven">Maven Dependency</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/dependency-gradle">Gradle Dependency</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Mapping classes</h3><ul class=""><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/mapping-conventions">Mapping Conventions</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/conditional-mappings">Conditional mappings</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/kt-mapper/docs/custom-mappings">Custom Mappings Patterns</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/deep-mappings">Deep Mapping</a></li><li class="navListItem"><a class="navItem" href="/kt-mapper/docs/null-values">Dealing with nullable values</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Custom Mappings Patterns</h1></header><article><div><span><p>Sometimes, the relation between source objects and target objects will not be an <em>as-is</em> relation. For this cases, you can use the <em>KtMapper Fluent Mapping API</em>. This API let you to change the way that KtMapper will map a specific property of a target object from a source object.
+The <em>KtMapper Fluent Mapping API</em> has two main units:</p>
+<ul>
+<li>A <em>target property</em> selector</li>
+<li>A <em>source</em> selector</li>
+</ul>
+<p>Lets consider the following classes:</p>
+<pre><code class="hljs css language-kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span></span>(
+    <span class="hljs-keyword">val</span> id: UUID,
+    <span class="hljs-keyword">val</span> name: String,
+    <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>,
+    <span class="hljs-keyword">val</span> address: String
+)
+
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span></span>(
+    <span class="hljs-keyword">val</span> id: UUID,
+    <span class="hljs-keyword">val</span> name: String,
+    <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>,
+    <span class="hljs-keyword">val</span> addressWithAnotherName: String
+)
+</code></pre>
+<p>In this case, the default naming convention adopted by KtMapper will not work for the properties <code>address</code> and <code>addressWithAnotherName</code> due to the fact the properties has different names. So, if we want to map source objects <code>Bar</code> to <code>Foo</code>, we will need to <em>teach</em> KtMapper that the property <code>addressWithAnotherName</code> should be redirected to the property <code>address</code>.
+The best way to use the <em>KtMapper Fluent Mapping API</em> is combine KtMapper structures and <code>with()</code> Kotlin function. You can see the example of this mapping below:</p>
+<pre><code class="hljs css language-kotlin">with (MapForProperty&lt;Foo, String&gt;(Foo::address)) { <span class="hljs-comment">// Target property selector</span>
+    whenSourceIs&lt;Bar&gt;() <span class="hljs-comment">// Source selector</span>
+        .mapFrom { it.addressWithAnotherName } <span class="hljs-comment">// How to map the target property from source</span>
+        .register() <span class="hljs-comment">// Registering mapping to KtMapper. Do not forget to call this!</span>
+}
+</code></pre>
+<p>A target object can be mapped from different sources. So, a single target property selector can handle multiple property selectors. Below there is an example with a single target property selector with multiple source selectors.</p>
+<pre><code class="hljs css language-kotlin">with (MapForProperty&lt;Foo, String&gt;(Foo::address)) { <span class="hljs-comment">// Single target property selector</span>
+    whenSourceIs&lt;Bar&gt;() <span class="hljs-comment">// Source selector 1</span>
+        .mapFrom { it.addressWithAnotherName }
+        .register()
+        
+    whenSourceIs&lt;OtherClass&gt;() <span class="hljs-comment">// Source selector 2</span>
+        .mapFrom { it.otherAddressProperty }
+        .register()        
+} <span class="hljs-comment">// End of target property selector</span>
+</code></pre>
+<p><strong>An important observation: we just need to use <em>KtMapper Fluent Mapping API</em> for properties that does not follow the conventions! The other properties will follow the way of naming conventions naturally!</strong></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/kt-mapper/docs/conditional-mappings"><span class="arrow-prev">← </span><span>Conditional mappings</span></a><a class="docs-next button" href="/kt-mapper/docs/deep-mappings"><span>Deep Mapping</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><a href="https://movilepay.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/kt-mapper/img/mpay_logo_white.png" alt="MovilePay" width="170" height="45"/></a><section class="copyright">Copyright © 2020 MovilePay. Built with Docusaurus.</section></footer></div></body></html>
