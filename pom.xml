@@ -100,7 +100,7 @@
 
         <resources>
             <resource>
-                <directory>docs</directory>
+                <directory>docs2</directory>
                 <filtering>true</filtering>
                 <excludes>
                     <exclude>**/*</exclude>
