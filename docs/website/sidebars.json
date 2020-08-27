@@ -1,0 +1,10 @@
+{
+  "docs": {
+    "KtMapper": ["kt-mapper"],
+    "Dependency": ["dependency-maven", "dependency-gradle"],
+    "Mapping classes": ["mapping-conventions", "conditional-mappings", "custom-mappings", "deep-mappings", "null-values"]
+  },
+  "docs-other": {
+    "First Category": ["doc4", "doc5"]
+  }
+}
