@@ -22,42 +22,37 @@ object Reflection {
             T::class.isData
     }
 
+    @Suppress("UNCHECKED_CAST")
     object Constructors {
         inline fun <reified T : Any> getAllConstructors(): Collection<KFunction<T>> =
             Clazz.getKClass<T>().constructors
 
-        inline fun <reified T : Any> getConstructorWithMoreParameters(): KFunction<T> =
-            Clazz.getKClass<T>().constructors.maxBy { it.parameters.count() }!!
+        inline fun <reified T : Any> getConstructorWithMostParameters(): KFunction<T> = getConstructorWithMostParameters(Clazz.getKClass<T>()) as KFunction<T>
+        fun getConstructorWithMostParameters(type: KClass<*>): KFunction<*> = type.constructors.maxBy { it.parameters.count() }!!
 
-        inline fun <reified T : Any> getConstructorWithLessParameters(): KFunction<T> =
-            Clazz.getKClass<T>().constructors.minBy { it.parameters.count() }!!
+        inline fun <reified T : Any> getConstructorWithLeastParameters(): KFunction<T> = getConstructorWithLeastParameters(Clazz.getKClass<T>()) as KFunction<T>
+        fun getConstructorWithLeastParameters(type: KClass<*>): KFunction<*> = type.constructors.minBy { it.parameters.count() }!!
     }
 
     object Params {
-        fun getFunctionParameters(fn: KFunction<*>): List<KParameter> =
-            fn.parameters
+        fun getFunctionParameters(fn: KFunction<*>): List<KParameter> = fn.parameters
     }
 
+    @Suppress("UNCHECKED_CAST")
     object Properties {
-        inline fun <reified T : Any> getPropertyByName(propertyName: String): KProperty<*> {
-            val targetProperty: KProperty<*>? =
-                Clazz.getKClass<T>().declaredMemberProperties.firstOrNull { it.name == propertyName }
-            return targetProperty!!
-        }
+        inline fun <reified T : Any> getPropertyByName(name: String) = getPropertyByName(name, Clazz.getKClass<T>())
+        fun getPropertyByName(name: String, targetType: KClass<*>): KProperty<*> = targetType.declaredMemberProperties.firstOrNull { it.name == name }!!
 
-        inline fun <reified T : Any> getPropertyByIndex(propertyIndex: Int): KProperty<*> =
-            Clazz.getKClass<T>().declaredMemberProperties.elementAt(propertyIndex)
+        inline fun <reified T : Any> getPropertyByIndex(index: Int): KProperty<*> = getPropertyByIndex(index, Clazz.getKClass<T>())
+        fun getPropertyByIndex(index: Int, targetType: KClass<*>): KProperty<*> = targetType.declaredMemberProperties.elementAt(index)
 
-        fun <T> getValue(prop: KProperty<*>, src: Any): T =
-            prop.call(src) as T
+        fun <T> getValue(prop: KProperty<*>, src: Any): T = prop.call(src) as T
 
-        fun getDeclaringClass(prop: KProperty<*>): Class<*> =
-            (prop.javaField as Member? ?: prop.javaGetter)?.declaringClass!!
+        fun getDeclaringClass(prop: KProperty<*>): Class<*> = (prop.javaField as Member? ?: prop.javaGetter)?.declaringClass!!
     }
 
     object Functions {
-        fun <T> invoke(fn: KFunction<T>, params: Collection<Any?>): T =
-            fn.call(*params.toTypedArray())
+        fun <T> invoke(fn: KFunction<T>, params: Collection<Any?>): T = fn.call(*params.toTypedArray())
     }
 
 }

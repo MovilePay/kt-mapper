@@ -1,5 +1,6 @@
 package com.github.movilepay.ktmapper.mappings
 
+import com.github.movilepay.ktmapper.DeepKtMapper
 import com.github.movilepay.ktmapper.KtMapper
 import com.github.movilepay.ktmapper.helpers.KtMapperInternalHelper
 import kotlin.reflect.KProperty
@@ -41,6 +42,10 @@ abstract class MappingConfigurationBase<
 
     fun register() {
         KtMapper.register(
+            KtMapperInternalHelper.buildMapConfigRef(sourceClassName, property),
+            mapConfiguration = this
+        )
+        DeepKtMapper.register(
             KtMapperInternalHelper.buildMapConfigRef(sourceClassName, property),
             mapConfiguration = this
         )

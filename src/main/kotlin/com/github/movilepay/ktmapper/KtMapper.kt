@@ -23,7 +23,7 @@ object KtMapper {
 
     inline fun <reified TSource : Any, reified TTarget : Any> map(src: TSource): TTarget {
         val targetCtor: KFunction<TTarget> =
-            Reflection.Constructors.getConstructorWithMoreParameters()
+            Reflection.Constructors.getConstructorWithMostParameters()
         val targetCtorParameters: Collection<Any?> =
             buildCtorParameters(targetCtor, src)
         return Reflection.Functions.invoke(targetCtor, targetCtorParameters)

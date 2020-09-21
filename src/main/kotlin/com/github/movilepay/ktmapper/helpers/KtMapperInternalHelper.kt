@@ -1,6 +1,7 @@
 package com.github.movilepay.ktmapper.helpers
 
 import com.github.movilepay.ktmapper.reflection.Reflection
+import kotlin.reflect.KClass
 import kotlin.reflect.KParameter
 import kotlin.reflect.KProperty
 
@@ -16,12 +17,17 @@ internal object KtMapperInternalHelper {
 
     @PublishedApi
     @JvmSynthetic
-    internal inline fun <reified TSource, reified TTarget> buildMapConfigRef(param: KParameter): String =
+    internal inline fun buildMapConfigRef(param: KParameter, sourceClass: KClass<*>, targetClass: KClass<*>): String =
         buildMapConfigRef(
-            sourceClassName = TSource::class.java.name,
-            targetClassName = TTarget::class.java.name,
+            sourceClassName = sourceClass.java.name,
+            targetClassName = targetClass.java.name,
             targetElementName = param.name!! // TODO: verificar outra estratégia
         )
+
+    @PublishedApi
+    @JvmSynthetic
+    internal inline fun <reified TSource, reified TTarget> buildMapConfigRef(param: KParameter): String =
+        buildMapConfigRef(param, TSource::class, TTarget::class)
 
     @PublishedApi
     @JvmSynthetic
